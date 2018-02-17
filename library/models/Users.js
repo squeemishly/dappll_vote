@@ -24,6 +24,17 @@ class User {
       INSERT INTO users (email, password, name, ssn, pin, created_at)
       VALUES (?, ?, ?, ?, ?, ?)
       RETURNING id`, [email, password, name, ssn, pin, new Date()])
+    .then(data => {
+      return data.rows[0]
+    })
+  }
+
+  static findEmail(email) {
+    return database.raw(`
+      SELECT * FROM users WHERE email = ?`, [email])
+    .then(data => {
+      return data.rows[0]
+    })
   }
 }
 
