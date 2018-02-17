@@ -1,4 +1,11 @@
+const jwt = require("jwt-simple")
 const User = require("../models/Users")
+const keys = require('../../config/keys')
+
+function tokenForUser(user) {
+  const timestamp = new Date().getTime();
+  return jwt.encode({ sub: user.id, iat: timestamp }, keys.jwtKey);
+}
 
 class AuthController {
   static signup(req, res, next) {
@@ -24,7 +31,8 @@ class AuthController {
           } else {
             return User.createUser(email, password, name, ssn, pin)
             .then(data => {
-              res.json(data.rows[0])
+              const token = tokenForUser(data.rows[0].id)
+              res.json({ token: token })
             })
           }
         })
