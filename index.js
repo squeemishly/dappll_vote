@@ -7,10 +7,12 @@ const bodyParser = require("body-parser");
 // require("./services/passport");
 
 const app = express();
-require("./routers/authRouter")(app)
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+require("./routers/authRouter")(app)
 
 const port = process.env.PORT || 8080;
 app.listen(port)
