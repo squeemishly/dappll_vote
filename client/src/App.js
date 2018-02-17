@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+// import contracts from build json files
+// import getWeb3 from './utils/getWeb3'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Dappl Vote</h1>
         </header>
       </div>
     );
