@@ -4,7 +4,10 @@
   "description": "a voting app utilizing blockchain tech for security",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "server": "nodemon server.js",
+    "client": "cd client && yarn start",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"yarn run server\" \"yarn run client\""
   },
   "repository": {
     "type": "git",
@@ -15,5 +18,11 @@
   "bugs": {
     "url": "https://github.com/squeemishly/dappll_vote/issues"
   },
-  "homepage": "https://github.com/squeemishly/dappll_vote#readme"
+  "homepage": "https://github.com/squeemishly/dappll_vote#readme",
+  "devDependencies": {
+    "concurrently": "^3.5.1"
+  },
+  "dependencies": {
+    "nodemon": "^1.15.0"
+  }
 }
