@@ -1,14 +1,25 @@
+const jwt = require("jwt-simple")
 const User = require("../models/Users")
+const keys = require('../../config/keys')
+const bcrypt = require("bcrypt-nodejs")
+
+function tokenForUser(user) {
+  const timestamp = new Date().getTime();
+  return jwt.encode({ sub: user.id, iat: timestamp }, keys.jwtKey);
+}
 
 class AuthController {
   static signup(req, res, next) {
     const email = req.body.email;
-    const password = req.body.password;
+    const rawPassword = req.body.password;
     const name = req.body.name;
     const ssn = req.body.ssn;
     const pin = req.body.pin;
 
-    if (!email || !password || !name || !ssn || !pin) {
+
+    const password = bcrypt.hashSync(rawPassword)
+
+    if (!email || !rawPassword || !name || !ssn || !pin) {
       return res.status(422).send({ error: "You must provide all relevant information" });
     }
 
@@ -24,12 +35,18 @@ class AuthController {
           } else {
             return User.createUser(email, password, name, ssn, pin)
             .then(data => {
-              res.json(data.rows[0])
+              const token = tokenForUser(data.id)
+              res.json({ token: token })
             })
           }
         })
       }
     })
+  }
+
+  static signin(req, res, next) {
+    const token = tokenForUser(req.user.id)
+    res.send({ token: token })
   }
 }
 
