@@ -1,0 +1,19 @@
+{
+  "name": "dappll_vote",
+  "version": "1.0.0",
+  "description": "a voting app utilizing blockchain tech for security",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/squeemishly/dappll_vote.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/squeemishly/dappll_vote/issues"
+  },
+  "homepage": "https://github.com/squeemishly/dappll_vote#readme"
+}
