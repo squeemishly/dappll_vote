@@ -52,7 +52,7 @@ class App extends Component {
 
         return simpleStorageInstance.set(77, {from: accounts[0]})
       }).then((result) => {
-        return simpleStorageInstance.get.call({from:accounts[0], value:0, gasPrice:0})
+        return simpleStorageInstance.get.call({from:accounts[0]})
       }).then((result) => {
         return this.setState({ storageValue: result.c[0] })
       })
