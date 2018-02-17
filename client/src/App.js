@@ -6,6 +6,7 @@ import Landing from "./components/Landing/Landing";
 import Layout from "./components/UI/Layout/Layout";
 import Signin from "./components/Signin/Signin";
 import Signup from "./components/Signup/Signup";
+import Signout from "./components/Signout/Signout";
 
 class App extends Component {
   constructor(props) {
@@ -77,6 +78,7 @@ class App extends Component {
       <Switch>
         <Route path="/signin" component={Signin} />
         <Route path="/signup" exact component={Signup} />
+        <Route path="/signout" exact component={Signout} />
         <Redirect to="/" />
       </Switch>
     );

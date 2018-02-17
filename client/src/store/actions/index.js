@@ -2,12 +2,12 @@ import axios from "axios";
 import { BrowserRouter } from "react-router-dom";
 import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, FETCH_MESSAGE } from "./types";
 
-const ROOT_URL = "http://localhost:3090";
+const ROOT_URL = "http://localhost:8080";
 
-export function signinUser({ email, password }) {
+export function signinUser({ name, email, password, ssn, pin }) {
   return function(dispatch) {
     axios
-      .post(`${ROOT_URL}/signin`, { email, password })
+      .post(`/signin`, { name, email, password, ssn, pin })
       .then(response => {
         dispatch({ type: AUTH_USER });
 
@@ -21,10 +21,10 @@ export function signinUser({ email, password }) {
   };
 }
 
-export function signupUser({ email, password }) {
+export function signupUser({ name, email, password, ssn, pin }) {
   return function(dispatch) {
     axios
-      .post(`${ROOT_URL}/signup`, { email, password })
+      .post(`/signup`, { name, email, password, ssn, pin })
       .then(response => {
         dispatch({ type: AUTH_USER });
 
@@ -33,6 +33,7 @@ export function signupUser({ email, password }) {
         BrowserRouter.push("/feature");
       })
       .catch(error => {
+        console.log(error);
         dispatch(authError(error.response.data.error));
       });
   };
@@ -55,7 +56,7 @@ export function signoutUser() {
 export function fetchMessage() {
   return function(dispatch) {
     axios
-      .get(ROOT_URL, {
+      .get("/", {
         headers: { authorization: localStorage.getItem("token") }
       })
       .then(response => {

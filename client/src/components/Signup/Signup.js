@@ -61,6 +61,16 @@ class Signup extends Component {
     return (
       <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
         <div>
+          <div>
+            <label>Name: </label>
+            <Field
+              name="name"
+              component={renderField}
+              type="text"
+              placeholder="Name"
+              className="form-control"
+            />
+          </div>
           <label>Email: </label>
           <Field
             name="email"
@@ -87,6 +97,26 @@ class Signup extends Component {
             component={renderField}
             type="password"
             placeholder="Confirm Password"
+            className="form-control"
+          />
+        </div>
+        <div>
+          <label>SSN: </label>
+          <Field
+            name="ssn"
+            component={renderField}
+            type="text"
+            placeholder="SSN"
+            className="form-control"
+          />
+        </div>
+        <div>
+          <label>Pin: </label>
+          <Field
+            name="pin"
+            component={renderField}
+            type="text"
+            placeholder="Pin"
             className="form-control"
           />
         </div>
