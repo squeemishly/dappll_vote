@@ -56,11 +56,6 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },
-  "babel": {
-    "presets": [
-      "react-app"
-    ]
-  },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,mjs}"
@@ -93,6 +88,11 @@
       "web.jsx",
       "jsx",
       "node"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "react-app"
     ]
   },
   "eslintConfig": {
