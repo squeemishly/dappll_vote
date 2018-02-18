@@ -1,15 +1,23 @@
-import React, { Component } from 'react'
-import SimpleStorageContract from '../build/contracts/SimpleStorage.json'
-import getWeb3 from './utils/getWeb3'
+import React, { Component } from "react";
+import { Route, Switch, withRouter, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import SimpleStorageContract from "../build/contracts/SimpleStorage.json";
+import getWeb3 from "./utils/getWeb3";
+import Layout from "./components/UI/Layout/Layout";
+import Signin from "./components/Signin/Signin";
+import Signup from "./components/Signup/Signup";
+import Signout from "./components/Signout/Signout";
+import Feature from "./components/Feature/Feature";
+import require_auth from './components/hoc/require_auth/require_auth'
 
 class App extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       storageValue: 0,
       web3: null
-    }
+    };
   }
 
   componentWillMount() {
@@ -17,17 +25,17 @@ class App extends Component {
     // See utils/getWeb3 for more info.
 
     getWeb3
-    .then(results => {
-      this.setState({
-        web3: results.web3
-      })
+      .then(results => {
+        this.setState({
+          web3: results.web3
+        });
 
-      // Instantiate contract once web3 provided.
-      this.instantiateContract()
-    })
-    .catch(() => {
-      console.log('Error finding web3.')
-    })
+        // Instantiate contract once web3 provided.
+        this.instantiateContract();
+      })
+      .catch(() => {
+        console.log("Error finding web3.");
+      });
   }
 
   instantiateContract() {
@@ -38,49 +46,58 @@ class App extends Component {
      * state management library, but for convenience I've placed them here.
      */
 
-    const contract = require('truffle-contract')
-    const simpleStorage = contract(SimpleStorageContract)
-    simpleStorage.setProvider(this.state.web3.currentProvider)
+    const contract = require("truffle-contract");
+    const simpleStorage = contract(SimpleStorageContract);
+    simpleStorage.setProvider(this.state.web3.currentProvider);
 
     // Declaring this for later so we can chain functions on SimpleStorage.
-    var simpleStorageInstance
+    var simpleStorageInstance;
 
     // Get accounts.
     this.state.web3.eth.getAccounts((error, accounts) => {
-      simpleStorage.deployed().then((instance) => {
-        simpleStorageInstance = instance
+      simpleStorage
+        .deployed()
+        .then(instance => {
+          simpleStorageInstance = instance;
 
-        return simpleStorageInstance.set(77, {from: accounts[0]})
-      }).then((result) => {
-        return simpleStorageInstance.get.call({from:accounts[0], value:0, gasPrice:0})
-      }).then((result) => {
-        return this.setState({ storageValue: result.c[0] })
-      })
-    })
+          return simpleStorageInstance.set(77, { from: accounts[0] });
+        })
+        .then(result => {
+          return simpleStorageInstance.get.call({
+            from: accounts[0],
+            value: 0,
+            gasPrice: 0
+          });
+        })
+        .then(result => {
+          return this.setState({ storageValue: result.c[0] });
+        });
+    });
   }
 
   render() {
-    return (
-      <div className="App">
-        <nav className="navbar pure-menu pure-menu-horizontal">
-            <a href="#" className="pure-menu-heading pure-menu-link">Truffle Box</a>
-        </nav>
+    let routes = (
+      <Switch>
+        <Route path="/signin" component={Signin} />
+        <Route path="/signup" exact component={Signup} />
+        <Route path="/signout" exact component={Signout} />
+        <Route path="/feature" exact component={require_auth(Feature)} />
+      </Switch>
+    );
 
-        <main className="container">
-          <div className="pure-g">
-            <div className="pure-u-1-1">
-              <h1>Good to Go!</h1>
-              <p>Your Truffle Box is installed and ready.</p>
-              <h2>Smart Contract Example</h2>
-              <p>If your contracts compiled and migrated successfully, below will show a stored value of 5 (by default).</p>
-              <p>Try changing the value stored on <strong>line 59</strong> of App.js.</p>
-              <p>The stored value is: {this.state.storageValue}</p>
-            </div>
-          </div>
-        </main>
+    return (
+      <div>
+        <Layout>{routes}</Layout>
+        {this.props.isAuthenticated}
       </div>
     );
   }
 }
 
-export default App
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.authenticated
+  };
+};
+
+export default withRouter(connect(mapStateToProps)(App));
