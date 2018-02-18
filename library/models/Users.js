@@ -23,7 +23,7 @@ class User {
     return database.raw(`
       INSERT INTO users (email, password, name, ssn, pin, created_at)
       VALUES (?, ?, ?, ?, ?, ?)
-      RETURNING id`, [email, password, name, ssn, pin, new Date()])
+      RETURNING *`, [email, password, name, ssn, pin, new Date()])
     .then(data => {
       return data.rows[0]
     })

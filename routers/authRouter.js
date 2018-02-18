@@ -10,6 +10,6 @@ module.exports = function(app) {
     res.send({squee: "awesome"})
   })
 
-  app.post("/signup", Authentication.signup);
-  app.post("/signin", requireSignin, Authentication.signin);
+  app.post("/api/signup", Authentication.signup);
+  app.post("/api/signin", requireSignin, Authentication.signin);
 };
