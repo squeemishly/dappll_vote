@@ -5,14 +5,14 @@ import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, FETCH_MESSAGE } from "./types";
 export function signinUser({ name, email, password, ssn, pin }) {
   return function(dispatch) {
     axios
-      .post(`/signin`, { name, email, password, ssn, pin })
+      .post(`/api/signin`, { name, email, password, ssn, pin })
       .then(response => {
         console.log(response);
         dispatch({ type: AUTH_USER, payload: response.data.user });
 
         localStorage.setItem("token", response.data.token);
 
-        history.push("/feature");
+        history.push("/ballot");
       })
       .catch(error => {
         dispatch(authError("Bad Login Info"));
@@ -23,13 +23,13 @@ export function signinUser({ name, email, password, ssn, pin }) {
 export function signupUser({ name, email, password, ssn, pin }) {
   return function(dispatch) {
     axios
-      .post(`/signup`, { name, email, password, ssn, pin })
+      .post(`/api/signup`, { name, email, password, ssn, pin })
       .then(response => {
         dispatch({ type: AUTH_USER, payload: response.data.user });
 
         localStorage.setItem("token", response.data.token);
 
-        history.push("/feature");
+        history.push("/ballot");
       })
       .catch(error => {
         dispatch(authError(error.response.data.error));
