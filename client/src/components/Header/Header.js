@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import classes from "./Header.css";
 
 class Header extends Component {
   renderLinks() {
-      console.log(this.props)
+    console.log(this.props);
     if (this.props.authenticated) {
       return (
         <li className="nav-item">
@@ -31,11 +32,9 @@ class Header extends Component {
 
   render() {
     return (
-      <nav className="navbar navbar-light">
-        <Link to="/" className="navbar-brand">
-          Redux Auth
-        </Link>
-        <ul className="nav navbar-nav">{this.renderLinks()}</ul>
+      <nav className={classes.Navbar}>
+        Dappll Do Voter
+        <ul className={classes.NavigationItems}>{this.renderLinks()}</ul>
       </nav>
     );
   }
