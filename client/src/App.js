@@ -2,12 +2,11 @@ import React, { Component } from "react";
 import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-import Ballot from './components/ballot'
+import Ballot from './components/Ballot/Ballot'
 import Layout from "./components/UI/Layout/Layout";
 import Signin from "./components/Signin/Signin";
 import Signup from "./components/Signup/Signup";
 import Signout from "./components/Signout/Signout";
-import Feature from "./components/Feature/Feature";
 import require_auth from './components/hoc/require_auth/require_auth'
 
 class App extends Component {

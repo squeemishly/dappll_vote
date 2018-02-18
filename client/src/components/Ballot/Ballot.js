@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import getWeb3 from "../utils/getWeb3";
-import BallotContract from "../../build/contracts/Ballot.json"
+import getWeb3 from "../../utils/getWeb3";
+import BallotContract from "../../../build/contracts/Ballot.json"
 
 class Ballot extends Component {
-    state = {  
+    state = {
       voted: false,
       votedFor: null,
       candidatesHex: [],
@@ -84,7 +84,7 @@ class Ballot extends Component {
       return (
         <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', aligncontent: 'center'}}>
           {this.renderCandidate()}
-        </div>  
+        </div>
       )
     }
 }
