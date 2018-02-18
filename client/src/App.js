@@ -1,17 +1,13 @@
 import React, { Component } from "react";
 import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import SimpleStorageContract from "../build/contracts/SimpleStorage.json";
-import getWeb3 from "./utils/getWeb3";
 import Layout from "./components/UI/Layout/Layout";
 import Signin from "./components/Signin/Signin";
 import Signup from "./components/Signup/Signup";
 import Signout from "./components/Signout/Signout";
-import Feature from "./components/Feature/Feature";
-import Ballot from './components/ballot';
+import Ballot from './components/Ballot/Ballot';
 
 class App extends Component {
-
 
   render() {
     let routes = (
@@ -33,7 +29,7 @@ class App extends Component {
     return (
       <div>
         <Layout>{routes}</Layout>
-        {this.props.isAuthenticated}
+        {console.log(this.props.authenticated)}
       </div>
     );
   }
@@ -41,7 +37,8 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.authenticated
+    // user: state.auth.user
   };
 };
 
