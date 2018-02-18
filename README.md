@@ -9,7 +9,7 @@ $ psql
 CREATE DATABASE dappll_vote;  
 CREATE DATABASE dappll_vote_test;  
 
-#### 1: 
+#### 1:
 $ cd dappll_vote
 $ knex migrate:latest  
 
@@ -27,17 +27,19 @@ Include in .gitignore
 - client/build
 
 ### 4:
-yarn install
-cd client
-yarn install
+Install everything:
+- yarn install
+- cd client && yarn install
 
 ### 5:
-Make sure you're in the client directory
-truffle develop
-compile
-migrate
+Setup your blockchain environment
+- truffle develop
+- truffle(develop)> compile
+- truffle(develop)> migrate
 
 ## Things to think about for future iterations:
 
 - How do we incorporate validating the pin that the user receives in the mail?
 - How do we authenticate a user login with both email and SSN at the same time?
+- Do we add a TTL to the JWT?
+- Add an authentication to the SSN.
