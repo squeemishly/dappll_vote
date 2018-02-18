@@ -8,21 +8,21 @@ class Header extends Component {
     console.log(this.props);
     if (this.props.authenticated) {
       return (
-        <li className="nav-item">
-          <Link className="nav-link" to="/signout">
+        <li>
+          <Link className={classes.Link} to="/signout">
             Sign Out
           </Link>
         </li>
       );
     } else {
       return [
-        <li className="nav-item" key={1}>
-          <Link className="nav-link" to="/signin">
+        <li key={1}>
+          <Link className={classes.Link} to="/signin">
             Sign In
           </Link>
         </li>,
-        <li className="nav-item" key={2}>
-          <Link className="nav-link" to="/signup">
+        <li key={2}>
+          <Link className={classes.Link} to="/signup">
             Sign Up
           </Link>
         </li>
