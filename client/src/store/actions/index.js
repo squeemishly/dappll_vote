@@ -1,19 +1,18 @@
 import axios from "axios";
-import { BrowserRouter } from "react-router-dom";
+import history from "../../utils/history";
 import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, FETCH_MESSAGE } from "./types";
-
-const ROOT_URL = "http://localhost:8080";
 
 export function signinUser({ name, email, password, ssn, pin }) {
   return function(dispatch) {
     axios
       .post(`/signin`, { name, email, password, ssn, pin })
       .then(response => {
-        dispatch({ type: AUTH_USER });
+        console.log(response);
+        dispatch({ type: AUTH_USER, payload: response.data.user });
 
         localStorage.setItem("token", response.data.token);
 
-        BrowserRouter.push("/feature");
+        history.push("/feature");
       })
       .catch(error => {
         dispatch(authError("Bad Login Info"));
@@ -26,14 +25,13 @@ export function signupUser({ name, email, password, ssn, pin }) {
     axios
       .post(`/signup`, { name, email, password, ssn, pin })
       .then(response => {
-        dispatch({ type: AUTH_USER });
+        dispatch({ type: AUTH_USER, payload: response.data.user });
 
         localStorage.setItem("token", response.data.token);
 
-        BrowserRouter.push("/feature");
+        history.push("/feature");
       })
       .catch(error => {
-        console.log(error);
         dispatch(authError(error.response.data.error));
       });
   };

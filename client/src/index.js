@@ -1,15 +1,15 @@
 import React from "react";
+import registerServiceWorker from "./registerServiceWorker";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
+import { Router } from 'react-router'
 import reduxThunk from "redux-thunk";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import App from "./App";
-import registerServiceWorker from "./registerServiceWorker";
 import reducers from "./store/reducers";
+import history from "./utils/history";
 import { AUTH_USER } from "./store/actions/types";
 
-import Signin from "./components/Signin/Signin";
+import App from "./App";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -26,8 +26,8 @@ if (token) {
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
-        <App />
+    <Router history={history}>
+      <App />
     </Router>
   </Provider>,
   document.getElementById("root")

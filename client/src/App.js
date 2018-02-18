@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { Route, Switch, withRouter, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 import SimpleStorageContract from "../build/contracts/SimpleStorage.json";
 import getWeb3 from "./utils/getWeb3";
-import Landing from "./components/Landing/Landing";
 import Layout from "./components/UI/Layout/Layout";
 import Signin from "./components/Signin/Signin";
 import Signup from "./components/Signup/Signup";
 import Signout from "./components/Signout/Signout";
+import Feature from "./components/Feature/Feature";
 
 class App extends Component {
   constructor(props) {
@@ -79,13 +80,13 @@ class App extends Component {
         <Route path="/signin" component={Signin} />
         <Route path="/signup" exact component={Signup} />
         <Route path="/signout" exact component={Signout} />
-        <Redirect to="/" />
       </Switch>
     );
 
     if (this.props.isAuthenticated) {
       routes = (
         <Switch>
+          <Route path="/feature" exact component={Feature} />
           <Redirect to="/" />
         </Switch>
       );
@@ -93,9 +94,16 @@ class App extends Component {
     return (
       <div>
         <Layout>{routes}</Layout>
+        {this.props.isAuthenticated}
       </div>
     );
   }
 }
 
-export default withRouter(App);
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  };
+};
+
+export default withRouter(connect(mapStateToProps)(App));

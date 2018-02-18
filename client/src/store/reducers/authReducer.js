@@ -6,10 +6,10 @@ import {
 } from "../actions/types";
 
 export default function(state = {}, action) {
-  console.log(action.payload);
+  console.log(action);
   switch (action.type) {
     case AUTH_USER:
-      return { ...state, authenticated: true, error: "" };
+      return { ...state, authenticated: true, error: "", user: action.payload };
     case UNAUTH_USER:
       return { ...state, authenticated: false };
     case AUTH_ERROR:
