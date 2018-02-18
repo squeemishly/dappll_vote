@@ -8,6 +8,7 @@ import Signin from "./components/Signin/Signin";
 import Signup from "./components/Signup/Signup";
 import Signout from "./components/Signout/Signout";
 import Feature from "./components/Feature/Feature";
+import require_auth from './components/hoc/require_auth/require_auth'
 
 class App extends Component {
   constructor(props) {
@@ -80,17 +81,10 @@ class App extends Component {
         <Route path="/signin" component={Signin} />
         <Route path="/signup" exact component={Signup} />
         <Route path="/signout" exact component={Signout} />
+        <Route path="/feature" exact component={require_auth(Feature)} />
       </Switch>
     );
 
-    if (this.props.isAuthenticated) {
-      routes = (
-        <Switch>
-          <Route path="/feature" exact component={Feature} />
-          <Redirect to="/" />
-        </Switch>
-      );
-    }
     return (
       <div>
         <Layout>{routes}</Layout>
@@ -102,7 +96,7 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.authenticated
   };
 };
 
