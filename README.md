@@ -9,7 +9,8 @@ $ psql
 CREATE DATABASE dappll_vote;  
 CREATE DATABASE dappll_vote_test;  
 
-#### 1:  
+#### 1: 
+$ cd dappll_vote
 $ knex migrate:latest  
 
 #### 2:  
@@ -20,10 +21,21 @@ In config/dev.js:
 
 #### 3:  
 Include in .gitignore
-- .gitignore
 - yarn.lock
 - node_modules
 - config/dev.js
+- client/build
+
+### 4:
+yarn install
+cd client
+yarn install
+
+### 5:
+Make sure you're in the client directory
+truffle develop
+compile
+migrate
 
 ## Things to think about for future iterations:
 
