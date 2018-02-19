@@ -1,0 +1,20 @@
+.candidateProfile {
+  margin: 30px 30px;
+  border: 1px solid #ddd;
+  padding: 33px 33px;
+  border-radius: 3px;
+}
+
+.candidateName {
+  text-align: center;
+}
+
+.voteBtn {
+  padding: 15px 51px;
+  background-color:	#a3007d;
+}
+
+.voteBtn:hover {
+  background-color: #00a326;
+  cursor: pointer;
+}
