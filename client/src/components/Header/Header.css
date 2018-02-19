@@ -1,0 +1,45 @@
+.Navbar {
+  height: 56px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  color: white;
+  background-color: #007da3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+  z-index: 90;
+  text-decoration: none;
+}
+
+.NavigationItems {
+  color: white;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: flex-end;
+  
+  height: 100%;
+  width: 150px;
+  text-decoration: none;
+}
+
+.NavigationItems:li {
+}
+
+.Link {
+    color: white;
+    text-decoration: none;
+    padding-left: 20px;
+}
+
+.Link:hover {
+  color: rgba(255, 255, 255, 0.575);
+  text-decoration: underline;
+}
