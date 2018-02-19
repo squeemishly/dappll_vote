@@ -1,27 +1,28 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import classes from "./Header.css";
 
 class Header extends Component {
   renderLinks() {
-      console.log(this.props)
+    console.log(this.props);
     if (this.props.authenticated) {
       return (
-        <li className="nav-item">
-          <Link className="nav-link" to="/signout">
+        <li>
+          <Link className={classes.Link} to="/signout">
             Sign Out
           </Link>
         </li>
       );
     } else {
       return [
-        <li className="nav-item" key={1}>
-          <Link className="nav-link" to="/signin">
+        <li key={1}>
+          <Link className={classes.Link} to="/signin">
             Sign In
           </Link>
         </li>,
-        <li className="nav-item" key={2}>
-          <Link className="nav-link" to="/signup">
+        <li key={2}>
+          <Link className={classes.Link} to="/signup">
             Sign Up
           </Link>
         </li>
@@ -31,11 +32,9 @@ class Header extends Component {
 
   render() {
     return (
-      <nav className="navbar navbar-light">
-        <Link to="/" className="navbar-brand">
-          Redux Auth
-        </Link>
-        <ul className="nav navbar-nav">{this.renderLinks()}</ul>
+      <nav className={classes.Navbar}>
+        Dappll Do Voter
+        <ul className={classes.NavigationItems}>{this.renderLinks()}</ul>
       </nav>
     );
   }
