@@ -1,0 +1,79 @@
+.Container {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .Form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .FormColumn {
+      margin-left: 20px;
+  }
+  
+  .Input {
+    border: 5px solid white;
+    width: 200px;
+    -webkit-box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.1),
+      0 0 16px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.1), 0 0 16px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.1), 0 0 16px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.5);
+    margin: 0 0 10px 0;
+  }
+
+  .Error {
+      height: 30px;
+  }
+
+  ErrorPlaceholder {
+      color: white;
+      height: 30px;
+      width: 100%;
+      border: 1px solid black;
+  }
+  
+  .Label {
+    margin: 10px;
+    padding-right: 130px;
+  }
+  
+  .Button {
+    box-shadow: rgb(255, 255, 255) 0px 1px 0px 0px inset;
+    background: linear-gradient(rgb(249, 249, 249) 5%, rgb(233, 233, 233) 100%)
+      rgb(249, 249, 249);
+    border-radius: 6px;
+    border: 1px solid rgb(220, 220, 220);
+    display: inline-block;
+    cursor: pointer;
+    color: rgb(102, 102, 102);
+    font-family: Arial;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 6px 24px;
+    text-decoration: none;
+    text-shadow: rgb(255, 255, 255) 0px 1px 0px;
+  }
+
+  .SignupContainer {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+  }
+  
+  .AlertOff {
+      height: 50px
+  }
+  
+  .AlertOn {
+      padding-top: 10px;
+      color: red;
+      height: 40px;
+  }

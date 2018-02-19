@@ -13,11 +13,9 @@ CREATE DATABASE dappll_vote_test;
 $ cd dappll_vote
 $ knex migrate:latest  
 
-#### 2:  
-In config/dev.js:  
-    module.exports = {
-      jwtKey: "typeSomeRandomCharactersUntilYouAreSatisfiedWithTheLength"
-    }
+#### 2:
+- Create a JWT_KEY in a .env file in the root of the project.
+`JWT_KEY=<YOUR KEY>`
 
 #### 3:  
 Include in .gitignore
