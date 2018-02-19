@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-
-import Ballot from './components/Ballot/Ballot'
+import classes from "./App.css"
+import Ballot from "./components/Ballot/Ballot"
 import Layout from "./components/UI/Layout/Layout";
 import Signin from "./components/Signin/Signin";
 import Signup from "./components/Signup/Signup";
 import Signout from "./components/Signout/Signout";
-import require_auth from './components/hoc/require_auth/require_auth'
+import require_auth from "./components/hoc/require_auth/require_auth";
 
 class App extends Component {
   render() {
@@ -17,11 +17,12 @@ class App extends Component {
         <Route path="/signup" exact component={Signup} />
         <Route path="/signout" exact component={Signout} />
         <Route path="/ballot" exact component={require_auth(Ballot)} />
+        <Redirect to="/" />
       </Switch>
     );
 
     return (
-      <div>
+      <div className={classes.Body}>
         <Layout>{routes}</Layout>
         {this.props.isAuthenticated}
         {console.log(this.props.user)}
