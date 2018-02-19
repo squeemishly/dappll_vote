@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import getWeb3 from "../../utils/getWeb3";
 import BallotContract from "../../../build/contracts/Ballot.json"
+import c from "./Ballot.css";
 
 class Ballot extends Component {
     state = {
@@ -47,15 +48,17 @@ class Ballot extends Component {
           ballotContractInstance = instance
 
           return ballotContractInstance.getCandidates()
-
-        }).then((result) => {
+        })
+        .then((result) => {
           this.setState({ candidatesHex: result })
-        }).then(() => {
+        })
+        .then(() => {
           let candidates = []
           this.state.candidatesHex.forEach((candidate) => {
             candidates.push(this.state.web3.toAscii(candidate))
           })
           this.setState({candidates: candidates})
+          console.log(candidates);
         })
       })
     }
@@ -71,9 +74,9 @@ class Ballot extends Component {
       return (
         <div>
           {this.state.candidates.map((candidate, index) =>
-            <div key={index}>
-              <h4 className={candidate}>{candidate}</h4>
-              <button key={index} type="button">Vote</button>
+            <div className={c.candidateProfile} key={index}>
+              <h1 className={c.candidateName}>{candidate}</h1>
+              <button className={c.voteBtn} key={index} type="button">Vote</button>
             </div>
           )}
         </div>
