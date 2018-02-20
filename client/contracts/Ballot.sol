@@ -40,8 +40,8 @@ contract Ballot is Ownable {
       return length;
   }
 
-  function getCandidate(uint index) public view returns(bytes32) {
-      return candidates[index].name;
+  function getCandidate(uint index) public view returns(bytes32, bytes32) {
+      return (candidates[index].name, candidates[index].party);
   }
 
   function giveRightToVote(address voter) onlyOwner public {
