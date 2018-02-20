@@ -35,17 +35,9 @@ contract Ballot is Ownable {
       }
   }
 
-  function getCandidates() public view returns(bytes32[]) {
+  function getNumCandidates() public view returns(uint) {
       uint length = candidates.length;
-
-      bytes32[] memory names = new bytes32[](length);
-
-      for (uint i = 0; i < length; i++) {
-        names[i] = candidates[i].name;
-      }
-
-      return names;
-
+      return length;
   }
 
   function getCandidate(uint index) public view returns(bytes32) {
