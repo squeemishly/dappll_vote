@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import classes from "./App.css"
-import Ballot from "./components/Ballot/Ballot"
+import classes from "./App.css";
+import Ballot from "./components/Ballot/Ballot";
 import Layout from "./components/UI/Layout/Layout";
 import Signin from "./components/Signin/Signin";
 import Signup from "./components/Signup/Signup";
@@ -16,7 +16,7 @@ class App extends Component {
         <Route path="/signin" component={Signin} />
         <Route path="/signup" exact component={Signup} />
         <Route path="/signout" exact component={Signout} />
-        <Route path="/ballot" exact component={require_auth(Ballot)} />
+        <Route path="/ballot" exact component={Ballot} />
         <Redirect to="/" />
       </Switch>
     );
@@ -24,8 +24,6 @@ class App extends Component {
     return (
       <div className={classes.Body}>
         <Layout>{routes}</Layout>
-        {this.props.isAuthenticated}
-        {console.log(this.props.user)}
       </div>
     );
   }
