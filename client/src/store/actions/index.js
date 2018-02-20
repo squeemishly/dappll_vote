@@ -7,7 +7,7 @@ export function signinUser({ name, email, password, ssn, pin }) {
     axios
       .post(`/api/signin`, { name, email, password, ssn, pin })
       .then(response => {
-        console.log(response);
+        // console.log(response);
         dispatch({ type: AUTH_USER, payload: response.data.user });
 
         localStorage.setItem("token", response.data.token);

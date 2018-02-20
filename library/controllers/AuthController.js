@@ -46,7 +46,10 @@ class AuthController {
 
   static signin(req, res, next) {
     const token = tokenForUser(req.user.id);
-    res.send({ token: token, user: req.user });
+    res.send({
+      token: token,
+      user: { id: req.user.id, name: req.user.name, email: req.user.email }
+    });
   }
 }
 

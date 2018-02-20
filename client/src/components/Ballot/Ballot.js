@@ -1,95 +1,104 @@
 import React, { Component } from "react";
 import getWeb3 from "../../utils/getWeb3";
-import BallotContract from "../../../build/contracts/Ballot.json"
+import BallotContract from "../../../build/contracts/Ballot.json";
+import { connect } from "react-redux";
 import c from "./Ballot.css";
 
 class Ballot extends Component {
-    state = {
-      voted: false,
-      votedFor: null,
-      candidatesHex: [],
-      candidates: [],
-    }
+  state = {
+    candidates: [],
+    web3: null
+  };
 
-    componentWillMount() {
-      getWeb3
+  componentWillMount() {
+    console.log("Ballot Component");
+    getWeb3
       .then(results => {
         this.setState({
           web3: results.web3
-        })
+        });
 
-        this.InstantiateContract()
+        this.InstantiateContract();
       })
       .catch(() => {
-        console.log("Error finding web3.")
-      })
-    }
+        console.log("Error finding web3.");
+      });
+  }
 
-    // componentDidMount() {
-    //   getVoted(currentUser.Address)
-    //   .then((result) => {
-    //     this.setState({
-    //       voted: result.data.voted,
-    //       votedFor: result.data.votedFor
-    //     })
-    //   })
-    // }
+  InstantiateContract() {
+    const contract = require("truffle-contract");
+    const ballotContract = contract(BallotContract);
+    ballotContract.setProvider(this.state.web3.currentProvider);
 
-    InstantiateContract() {
-      const contract = require('truffle-contract')
-      const ballotContract = contract(BallotContract)
-      ballotContract.setProvider(this.state.web3.currentProvider)
+    let ballotContractInstance;
 
-      let ballotContractInstance
+    this.state.web3.eth.getAccounts((err, accounts) => {
+      ballotContract
+        .deployed()
+        .then(instance => {
+          ballotContractInstance = instance;
 
-      this.state.web3.eth.getAccounts((err, accounts) => {
-        ballotContract.deployed()
-        .then((instance) => {
-          ballotContractInstance = instance
-
-          return ballotContractInstance.getCandidates()
+          return ballotContractInstance.getNumCandidates();
         })
-        .then((result) => {
-          this.setState({ candidatesHex: result })
-        })
-        .then(() => {
-          let candidates = []
-          this.state.candidatesHex.forEach((candidate) => {
-            candidates.push(this.state.web3.toAscii(candidate))
-          })
-          this.setState({candidates: candidates})
-          console.log(candidates);
-        })
-      })
-    }
+        .then(result => {
+          let candidates = [];
 
-    // handleClick(id) {
-    //   submitVote(id)
-    //   .then((result) => {
-    //     this.setState({voted = true})
-    //   })
-    // }
+          for (let i = 0; i < result; i++) {
+            candidates.push(ballotContractInstance.getCandidate(i));
+          }
 
-    renderCandidate() {
-      return (
-        <div>
-          {this.state.candidates.map((candidate, index) =>
-            <div className={c.candidateProfile} key={index}>
-              <h1 className={c.candidateName}>{candidate}</h1>
-              <button className={c.voteBtn} key={index} type="button">Vote</button>
-            </div>
-          )}
-        </div>
-      )
-    }
+          Promise.all(candidates).then(values => {
+            const candidates = values.map(candidate => {
+              return [
+                this.state.web3.toAscii(candidate[0]),
+                this.state.web3.toAscii(candidate[1])
+              ];
+            });
 
-    render() {
-      return (
-        <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', aligncontent: 'center'}}>
-          {this.renderCandidate()}
-        </div>
-      )
-    }
+            this.setState({ candidates });
+          });
+        });
+    });
+  }
+
+  renderCandidate() {
+    return (
+      <div>
+        <h1>{this.props.user.name}</h1>
+        {this.state.candidates.map((candidate, index) => (
+          <div className={c.candidateProfile} key={index}>
+            <h1 className={c.candidateName}>{candidate[0]}</h1>
+            <h3 className={c.candidateName}>{candidate[1]}</h3>
+            <button className={c.voteBtn} key={index} type="button">
+              Vote
+            </button>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  render() {
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+          aligncontent: "center"
+        }}
+      >
+        {this.renderCandidate()}
+      </div>
+    );
+  }
 }
 
-export default Ballot;
+const mapStateToProps = state => {
+  return {
+    user: state.auth.user
+  }
+}
+
+export default connect(mapStateToProps)(Ballot);

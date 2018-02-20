@@ -11,20 +11,23 @@ contract Ballot is Ownable {
     }
 
     struct Voter {
-        uint weight;
+        bytes32 name;
+        bytes32 pin;
+        bytes32 ssn;
         bool voted;
         uint vote;
+        uint weight;
     }
 
-  address public governor;
+  address public owner;
 
   mapping(address => Voter) public voters;
 
   Candidate[] public candidates;
 
   function Ballot(bytes32[] candidateNames, bytes32[] candidateParties) public {
-      governor = msg.sender;
-      voters[governor].weight = 1;
+      owner = msg.sender;
+      voters[owner].weight = 1;
 
       for (uint i = 0; i < candidateNames.length; i++) {
         candidates.push(Candidate({
@@ -35,21 +38,34 @@ contract Ballot is Ownable {
       }
   }
 
-  function getCandidates() public view returns(bytes32[]) {
-      uint length = candidates.length;
+  function createVoter(address _address, bytes32 _name, bytes32 _ssn, bytes32 _pin) onlyOwner public returns(bytes32, bytes32, bytes32) {
+      
+    //   Voter memory voter = Voter({
+    //     name: _name,
+    //     pin: _pin,
+    //     ssn: _ssn,
+    //     voted: false,
+    //     vote: 0,
+    //     weight: 1
+    //   });
 
-      bytes32[] memory names = new bytes32[](length);
+      voters[_address].name = _name;
+      voters[_address].pin = _pin;
+      voters[_address].ssn = _ssn;
+      voters[_address].voted = false;
+      voters[_address].vote = 0;
+      voters[_address].weight = 1;
 
-      for (uint i = 0; i < length; i++) {
-        names[i] = candidates[i].name;
-      }
-
-      return names;
-
+      return (voters[_address].name,  voters[_address].ssn, voters[_address].pin);
   }
 
-  function getCandidate(uint index) public view returns(bytes32) {
-      return candidates[index].name;
+  function getNumCandidates() public view returns(uint) {
+      uint length = candidates.length;
+      return length;
+  }
+
+  function getCandidate(uint index) public view returns(bytes32, bytes32) {
+      return (candidates[index].name, candidates[index].party);
   }
 
   function giveRightToVote(address voter) onlyOwner public {
