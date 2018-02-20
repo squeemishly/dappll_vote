@@ -16,7 +16,7 @@ class App extends Component {
         <Route path="/signin" component={Signin} />
         <Route path="/signup" exact component={Signup} />
         <Route path="/signout" exact component={Signout} />
-        <Route path="/ballot" exact component={Ballot} />
+        <Route path="/ballot" exact component={require_auth(Ballot)} />
         <Redirect to="/" />
       </Switch>
     );
