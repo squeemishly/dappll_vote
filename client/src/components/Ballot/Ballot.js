@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import getWeb3 from "../../utils/getWeb3";
 import BallotContract from "../../../build/contracts/Ballot.json";
+import { connect } from "react-redux";
 import c from "./Ballot.css";
 
 class Ballot extends Component {
@@ -47,9 +48,13 @@ class Ballot extends Component {
           }
 
           Promise.all(candidates).then(values => {
-            const candidates = values.map(candidate =>
-              this.state.web3.toAscii(candidate)
-            );
+            const candidates = values.map(candidate => {
+              return [
+                this.state.web3.toAscii(candidate[0]),
+                this.state.web3.toAscii(candidate[1])
+              ];
+            });
+
             this.setState({ candidates });
           });
         });
@@ -59,9 +64,11 @@ class Ballot extends Component {
   renderCandidate() {
     return (
       <div>
+        <h1>{this.props.user.name}</h1>
         {this.state.candidates.map((candidate, index) => (
           <div className={c.candidateProfile} key={index}>
-            <h1 className={c.candidateName}>{candidate}</h1>
+            <h1 className={c.candidateName}>{candidate[0]}</h1>
+            <h3 className={c.candidateName}>{candidate[1]}</h3>
             <button className={c.voteBtn} key={index} type="button">
               Vote
             </button>
@@ -88,4 +95,10 @@ class Ballot extends Component {
   }
 }
 
-export default Ballot;
+const mapStateToProps = state => {
+  return {
+    user: state.auth.user
+  }
+}
+
+export default connect(mapStateToProps)(Ballot);
