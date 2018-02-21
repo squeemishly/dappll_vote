@@ -37,7 +37,5 @@ Setup your blockchain environment
 
 ## Things to think about for future iterations:
 
-- How do we incorporate validating the pin that the user receives in the mail?
-- How do we authenticate a user login with both email and SSN at the same time?
-- Do we add a TTL to the JWT?
-- Add an authentication to the SSN.
+- On page refresh, check for a JWT in localStorage. If there is a JWT and it isn't expired (see next), check the JWT on the backend and if valid, return user. Perform this request from an action creator that is dispatched from a componentDidMount() lifecycle hook in App.js.
+- Do we add a TTL to the JWT? Possibly set an expiration time in local storage, checking that the time hasn't expired on page refresh
