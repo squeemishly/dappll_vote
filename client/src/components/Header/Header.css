@@ -24,9 +24,8 @@
   flex-flow: row;
   align-items: center;
   justify-content: flex-end;
-  
   height: 100%;
-  width: 150px;
+  width: 250px;
   text-decoration: none;
 }
 
@@ -34,9 +33,9 @@
 }
 
 .Link {
-    color: white;
-    text-decoration: none;
-    padding-left: 20px;
+  color: white;
+  text-decoration: none;
+  padding-left: 20px;
 }
 
 .Link:hover {

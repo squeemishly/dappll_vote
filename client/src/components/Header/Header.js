@@ -7,13 +7,23 @@ class Header extends Component {
   renderLinks() {
     console.log(this.props);
     if (this.props.authenticated) {
-      return (
-        <li>
+      return [
+        <li key={1}>
+          <Link className={classes.Link} to="/profile">
+            Profile
+          </Link>
+        </li>,
+        <li key={2}>
+          <Link className={classes.Link} to="/ballot">
+            Ballot
+          </Link>
+        </li>,
+        <li key={3}>
           <Link className={classes.Link} to="/signout">
             Sign Out
           </Link>
         </li>
-      );
+      ];
     } else {
       return [
         <li key={1}>

@@ -6,12 +6,12 @@ class Profile extends Component {
      render() {
          return (
              <div className={classes.Container}>
-                <h2>Name: {this.props.user.name}</h2>
-                <h2>Email: {this.props.user.email}</h2>
-                <h2>Account Number: #sndk2329fnf92h9nsd</h2>
-                <h2>Voted: True</h2>
-                <h2>Voted For: Bush</h2>
-                <h2>Time Voted: Thursday, February 14, 2018</h2>
+                <h3>Name: {this.props.user.name}</h3>
+                <h3>Email: {this.props.user.email}</h3>
+                <h3>Account Number: #sndk2329fnf92h9nsd</h3>
+                <h3>Voted: True</h3>
+                <h3>Voted For: Bush</h3>
+                <h3>Time Voted: Thursday, February 14, 2018</h3>
             </div>
          )
      }
