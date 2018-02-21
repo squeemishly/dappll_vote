@@ -7,6 +7,7 @@ import Layout from "./components/UI/Layout/Layout";
 import Signin from "./components/Signin/Signin";
 import Signup from "./components/Signup/Signup";
 import Signout from "./components/Signout/Signout";
+import Profile from "./components/Profile/Profile";
 import require_auth from "./components/hoc/require_auth/require_auth";
 
 class App extends Component {
@@ -17,6 +18,7 @@ class App extends Component {
         <Route path="/signup" exact component={Signup} />
         <Route path="/signout" exact component={Signout} />
         <Route path="/ballot" exact component={require_auth(Ballot)} />
+        <Route path="/profile" exact component={require_auth(Profile)} />
         <Redirect to="/" />
       </Switch>
     );
