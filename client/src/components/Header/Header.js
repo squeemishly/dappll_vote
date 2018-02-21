@@ -9,6 +9,11 @@ class Header extends Component {
     if (this.props.authenticated) {
       return [
         <li key={1}>
+          <Link className={classes.Link} to="/results">
+            Results
+          </Link>
+        </li>,
+        <li key={1}>
           <Link className={classes.Link} to="/profile">
             Profile
           </Link>
@@ -26,6 +31,11 @@ class Header extends Component {
       ];
     } else {
       return [
+        <li key={1}>
+          <Link className={classes.Link} to="/results">
+            Results
+          </Link>
+        </li>,
         <li key={1}>
           <Link className={classes.Link} to="/signin">
             Sign In
