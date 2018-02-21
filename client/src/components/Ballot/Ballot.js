@@ -64,7 +64,7 @@ class Ballot extends Component {
   renderCandidate() {
     return (
       <div>
-        <h1>{this.props.user.name}</h1>
+        <h1>Please Vote for a Candidate</h1>
         {this.state.candidates.map((candidate, index) => (
           <div className={c.candidateProfile} key={index}>
             <h1 className={c.candidateName}>{candidate[0]}</h1>
