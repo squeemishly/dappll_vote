@@ -10,7 +10,7 @@
 }
 
 .voteBtn {
-  text-align: center;
+  margin: 0 auto;
   padding: 15px 51px;
   background-color:	#a32600;
   font-size: 26px;
