@@ -12,7 +12,15 @@ module.exports = function(deployer, network, accounts) {
       return ballot;
     })
     .then(function(instance) {
-      return instance.createVoter("0xf17f52151ebef6c7334fad080c5704d77216b732", 345321)
+      const voterAccounts = [];
+
+      for (let i = 0; i < accounts.length; i++) {
+        voterAccounts.push(instance.createVoter(accounts[i], Math.floor(Math.random()*100000+1)));
+      }
+
+      Promise.all(voterAccounts).then(function(values) {
+        console.log(values);
+      });
     })
     .catch(function() { console.log("Error: Contract functions not completed.")})
 };
