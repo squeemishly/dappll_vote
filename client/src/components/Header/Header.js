@@ -13,17 +13,17 @@ class Header extends Component {
             Results
           </Link>
         </li>,
-        <li key={1}>
+        <li key={2}>
           <Link className={classes.Link} to="/profile">
             Profile
           </Link>
         </li>,
-        <li key={2}>
+        <li key={3}>
           <Link className={classes.Link} to="/ballot">
             Ballot
           </Link>
         </li>,
-        <li key={3}>
+        <li key={4}>
           <Link className={classes.Link} to="/signout">
             Sign Out
           </Link>
@@ -36,12 +36,12 @@ class Header extends Component {
             Results
           </Link>
         </li>,
-        <li key={1}>
+        <li key={2}>
           <Link className={classes.Link} to="/signin">
             Sign In
           </Link>
         </li>,
-        <li key={2}>
+        <li key={3}>
           <Link className={classes.Link} to="/signup">
             Sign Up
           </Link>
