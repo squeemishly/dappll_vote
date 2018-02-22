@@ -11,9 +11,7 @@ contract Ballot is Ownable {
     }
 
     struct Voter {
-        bytes32 name;
-        bytes32 pin;
-        bytes32 ssn;
+        uint ssn;
         bool voted;
         uint vote;
         uint weight;
@@ -38,25 +36,13 @@ contract Ballot is Ownable {
       }
   }
 
-  function createVoter(address _address, bytes32 _name, bytes32 _ssn, bytes32 _pin) onlyOwner public returns(bytes32, bytes32, bytes32) {
-      
-    //   Voter memory voter = Voter({
-    //     name: _name,
-    //     pin: _pin,
-    //     ssn: _ssn,
-    //     voted: false,
-    //     vote: 0,
-    //     weight: 1
-    //   });
+  function createVoter(address _address, uint _ssn) public returns(uint) {
 
-      voters[_address].name = _name;
-      voters[_address].pin = _pin;
       voters[_address].ssn = _ssn;
       voters[_address].voted = false;
-      voters[_address].vote = 0;
       voters[_address].weight = 1;
 
-      return (voters[_address].name,  voters[_address].ssn, voters[_address].pin);
+      return (voters[_address].ssn);
   }
 
   function getNumCandidates() public view returns(uint) {
@@ -64,8 +50,8 @@ contract Ballot is Ownable {
       return length;
   }
 
-  function getCandidate(uint index) public view returns(bytes32, bytes32) {
-      return (candidates[index].name, candidates[index].party);
+  function getCandidate(uint index) public view returns(bytes32, bytes32, uint) {
+      return (candidates[index].name, candidates[index].party, candidates[index].voteCount);
   }
 
   function giveRightToVote(address voter) onlyOwner public {
@@ -75,11 +61,12 @@ contract Ballot is Ownable {
 
   function vote(uint candidate) public {
       Voter storage sender = voters[msg.sender];
-      require(!sender.voted);
+      require(!sender.voted && sender.weight == 1);
       sender.voted = true;
       sender.vote = candidate;
 
       candidates[candidate].voteCount += sender.weight;
+      sender.weight -= 1;
   }
 
   function winningCandidate() public view

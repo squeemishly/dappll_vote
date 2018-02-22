@@ -3,10 +3,9 @@
   border: 1px solid #ddd;
   padding: 33px 33px;
   border-radius: 3px;
-}
-
-.candidateName {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .voteBtn {
